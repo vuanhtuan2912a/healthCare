@@ -64,7 +64,7 @@ const ProfileScreen = () => {
           alignSelf: 'center',
           justifyContent: 'center',
           alignItems: 'center',
-          paddingVertical: 1,
+          paddingVertical: 10,
           paddingHorizontal: 20,
           flexDirection: 'row',
           backgroundColor: color.white,
