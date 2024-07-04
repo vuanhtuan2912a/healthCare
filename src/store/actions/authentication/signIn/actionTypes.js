@@ -1,0 +1,4 @@
+export const GET_VALIDATE_PHONE = 'GET_VALIDATE_PHONE';
+export const GET_VALIDATE_PASSWORD = 'GET_VALIDATE_PASSWORD';
+export const CHECK_LOGIN = 'CHECK_LOGIN';
+export const SIGN_IN = 'SIGN_IN';
