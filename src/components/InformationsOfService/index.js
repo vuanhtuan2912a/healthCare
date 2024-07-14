@@ -41,14 +41,16 @@ const InformationsOfService = ({ uri, title, content, marginBottom = 15 }) => {
             }}>
             {title}
           </Text>
-          <Text
-            style={{
-              fontSize: stylesForMultipleDevice.fontSize - 1.5,
-              color: color.carbonGrey,
-              marginTop: 3,
-            }}>
-            {content}
-          </Text>
+          <View style={{ maxWidth: '70%' }}>
+            <Text
+              style={{
+                fontSize: stylesForMultipleDevice.fontSize - 1.5,
+                color: color.carbonGrey,
+                marginTop: 3,
+              }}>
+              {content}
+            </Text>
+          </View>
         </View>
       </View>
     );

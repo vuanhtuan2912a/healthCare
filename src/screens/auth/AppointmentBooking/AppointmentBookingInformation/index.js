@@ -13,12 +13,35 @@ import { dataInfoService, dataOfPatient } from '../../../../fakeData';
 import { stylesAppointmentBookingInformation } from '../../../../styles/Screens/AppointmentBookingInformation';
 import ResultOfAppointmentBooking from '../ResultOfAppointmentBooking';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const AppointmentBookingInformation = () => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = React.useState(false);
   const userInformations = useSelector(state => state.signInReducer);
+  const dateAppointment = useSelector(state => state.appointment.date);
+  const specialtyAppointment = useSelector(
+    state => state.appointment.specialty,
+  );
+
   const user_data = [userInformations?.data];
+  const dataServiceAppointment = [
+    dataInfoService[0],
+    {
+      title: textGlobal.DATE_OF_APPOINTMENT,
+      content: moment(dateAppointment).format('dddd - DD/MM/YYYY'),
+
+      icon: require('../../../../assets/icons/calendar.png'),
+    },
+    {
+      title: textGlobal.SPECIALTY,
+      content: specialtyAppointment,
+      icon: require('../../../../assets/icons/specialist.png'),
+    },
+
+    dataInfoService[1],
+  ];
+
   return (
     <View style={styles.container}>
       <HeaderBooking />
@@ -37,14 +60,16 @@ const AppointmentBookingInformation = () => {
         </View>
 
         <View style={stylesAppointmentBookingInformation.containerBody}>
-          {dataInfoService &&
-            dataInfoService?.map((item, index) => (
+          {dataServiceAppointment &&
+            dataServiceAppointment?.map((item, index) => (
               <InformationsOfService
                 key={index}
                 uri={item?.icon}
                 title={item?.title}
                 content={item?.content}
-                marginBottom={index === dataInfoService.length - 1 ? 0 : 15}
+                marginBottom={
+                  index === dataServiceAppointment.length - 1 ? 0 : 15
+                }
               />
             ))}
         </View>
@@ -96,7 +121,8 @@ const AppointmentBookingInformation = () => {
             </Text>
           </View>
           <Text style={stylesAppointmentBookingInformation.payBefore}>
-            {textGlobal.PAY_BEFORE}: 17:00 (16 tháng 4, 2023)
+            {textGlobal.PAY_BEFORE + ' '}
+            {moment(dateAppointment).format('dddd - DD/MM/YYYY')}
           </Text>
         </View>
       </ScrollView>

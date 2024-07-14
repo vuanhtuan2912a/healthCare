@@ -1,9 +1,25 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { color } from '../../../styles/color';
 import { stylesForMultipleDevice } from '../../../styles/global';
+import { domain } from '../../../environment';
+import axios from 'axios';
 
 const CommunityScreen = () => {
+  const [data, setData] = React.useState();
+  useEffect(() => {
+    getMethod();
+  }, []);
+
+  const getMethod = () => {
+    const result = axios.get(`https://api.jikan.moe/v4/anime/1`);
+
+    const data = result.then(res => {
+      console.log(res?.data?.data);
+      return setData(JSON.stringify(res?.data?.data?.aired));
+    });
+    return setData(data);
+  };
   return (
     <SafeAreaView
       style={{
@@ -30,6 +46,7 @@ const CommunityScreen = () => {
             color: color.white,
             fontWeight: '600',
           }}>
+          {/* {`${data}`} */}
           {`Tính năng này đang phát triển. Vui lòng chọn tính năng khác để có trải nghiệm tốt nhất!`}
         </Text>
       </View>

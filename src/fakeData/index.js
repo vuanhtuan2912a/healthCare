@@ -1,16 +1,12 @@
 import moment from 'moment';
 import { textGlobal } from '../textGlobal';
+import { useSelector } from 'react-redux';
 
 export const dataInfoService = [
   {
     title: textGlobal.HOSPITAL_NAME,
     content: '371 Đ. Điện Biên Phủ, P.4, Q.3, TP.HCM',
     icon: require('../assets/icons/location.png'),
-  },
-  {
-    title: textGlobal.DATE_OF_APPOINTMENT,
-    content: moment().format('dddd - DD/MM/YYYY'),
-    icon: require('../assets/icons/calendar.png'),
   },
   {
     title: textGlobal.HOT_LINE,

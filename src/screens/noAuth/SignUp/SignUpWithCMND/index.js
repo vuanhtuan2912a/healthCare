@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, StatusBar, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, Image, StatusBar, Text, View } from 'react-native';
 import ButtonCustom from '../../../../components/ButtonCustom';
 import TextInputCustom from '../../../../components/TextInput';
 import { color } from '../../../../styles/color';
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const SignUpWithCMND = () => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text

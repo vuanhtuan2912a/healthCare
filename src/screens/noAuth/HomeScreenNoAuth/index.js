@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import { Alert, Pressable, ScrollView, View } from 'react-native';
 import ButtonBooking from '../../../components/ButtonBooking';
 import HeaderWithAvatar from '../../../components/HeaderWithAvatar';
 import News from '../../../components/News';
@@ -13,7 +13,17 @@ import { useNavigation } from '@react-navigation/native';
 const HomeScreenNoAuth = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        Alert.alert('', 'Vui lòng đăng nhập để chọn chức năng này.', [
+          {
+            text: 'Đăng nhập',
+            onPress: () => navigation.navigate('SignIn'),
+            style: 'OK',
+          },
+        ])
+      }>
       <HeaderWithAvatar />
       <ButtonBooking
         onPress={() =>
@@ -31,7 +41,7 @@ const HomeScreenNoAuth = () => {
         style={{ paddingBottom: 100 }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-        <PackageService />
+        <PackageService isAuth={true} />
         <News />
       </ScrollView>
       <View
@@ -46,7 +56,7 @@ const HomeScreenNoAuth = () => {
         }}>
         <BottomTabCustom />
       </View>
-    </View>
+    </Pressable>
   );
 };
 

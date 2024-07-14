@@ -4,9 +4,11 @@ import { stylesForMultipleDevice } from '../../styles/global';
 import { textGlobal } from '../../textGlobal';
 import { color } from '../../styles/color';
 
-const TypesAppointment = () => {
-  const [selected, setSelected] = useState(textGlobal.CASH_FEE);
-
+const TypesAppointment = ({
+  typesAppointment = textGlobal.CASH_FEE,
+  onPressCashFee = () => {},
+  onPressBHYT = () => {},
+}) => {
   return (
     <View
       style={{
@@ -21,7 +23,9 @@ const TypesAppointment = () => {
             width: '50%',
             height: stylesForMultipleDevice.heightButton,
             backgroundColor:
-              selected === textGlobal.CASH_FEE ? color.topaz : color.white,
+              typesAppointment === textGlobal.CASH_FEE
+                ? color.topaz
+                : color.white,
             justifyContent: 'center',
             alignItems: 'center',
             borderTopLeftRadius: 6,
@@ -29,11 +33,13 @@ const TypesAppointment = () => {
             borderWidth: 1,
             borderColor: color.topaz,
           }}
-          onPress={() => setSelected(textGlobal.CASH_FEE)}>
+          onPress={onPressCashFee}>
           <Text
             style={{
               color:
-                selected === textGlobal.CASH_FEE ? color.white : color.topaz,
+                typesAppointment === textGlobal.CASH_FEE
+                  ? color.white
+                  : color.topaz,
               fontSize: stylesForMultipleDevice.fontSize,
               fontWeight: 'bold',
             }}>
@@ -45,7 +51,7 @@ const TypesAppointment = () => {
             width: '50%',
             height: stylesForMultipleDevice.heightButton,
             backgroundColor:
-              selected === textGlobal.BHYT ? color.topaz : color.white,
+              typesAppointment === textGlobal.BHYT ? color.topaz : color.white,
             justifyContent: 'center',
             alignItems: 'center',
             borderTopRightRadius: 6,
@@ -53,10 +59,13 @@ const TypesAppointment = () => {
             borderWidth: 1,
             borderColor: color.topaz,
           }}
-          onPress={() => setSelected(textGlobal.BHYT)}>
+          onPress={onPressBHYT}>
           <Text
             style={{
-              color: selected === textGlobal.BHYT ? color.white : color.topaz,
+              color:
+                typesAppointment === textGlobal.BHYT
+                  ? color.white
+                  : color.topaz,
               fontSize: stylesForMultipleDevice.fontSize,
               fontWeight: 'bold',
             }}>

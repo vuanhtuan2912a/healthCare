@@ -6,7 +6,7 @@ import { color } from '../../styles/color';
 import TextButton from '../TextButton';
 import Package from './Package';
 
-const PackageService = () => {
+const PackageService = ({ isAuth = false }) => {
   return (
     <View
       style={{
@@ -49,7 +49,7 @@ const PackageService = () => {
           />
         </View>
       </View>
-      <Package />
+      <Package isAuth={isAuth} />
     </View>
   );
 };

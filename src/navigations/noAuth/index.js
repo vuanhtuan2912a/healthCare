@@ -17,7 +17,6 @@ const NoAuthStack = () => {
       <Stack.Screen name="HomeScreenNoAuth" component={HomeScreenNoAuth} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      {() => HomeStack()}
     </Stack.Navigator>
   );
 };

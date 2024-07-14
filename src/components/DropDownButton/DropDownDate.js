@@ -11,6 +11,8 @@ import {
 import { stylesDropDownDate } from '../../styles/DropDown';
 import { color } from '../../styles/color';
 import { stylesForMultipleDevice } from '../../styles/global';
+import { useDispatch } from 'react-redux';
+import { saveDateAppointment } from '../../store/actions/appointment';
 
 const DropDownDate = ({
   uriIcon = require('../../assets/icons/arrow-right.png'),
@@ -19,9 +21,12 @@ const DropDownDate = ({
   onPress = () => {},
   iconLeft = require('../../assets/icons/calendar_select.png'),
 }) => {
-  const [selected, setSelected] = useState('');
+  const dispatch = useDispatch();
+  const [selected, setSelected] = useState(
+    moment().add(1, 'days').locale('vi').format('YYYY-MM-DD'),
+  );
   const [selectedContent, setSelectedContent] = useState(
-    moment().locale('vi').format('LL'),
+    moment().add(1, 'days').locale('vi').format('LL'),
   );
 
   LocaleConfig.locales['vi'] = {
@@ -79,6 +84,7 @@ const DropDownDate = ({
                 moment(day.dateString).locale('vi').format('LL'),
               );
               onPress();
+              dispatch(saveDateAppointment(day.dateString));
             }}
             markedDates={{
               [selected]: {

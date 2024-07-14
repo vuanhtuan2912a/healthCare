@@ -9,7 +9,6 @@ import { textGlobal } from '../../../textGlobal';
 
 const ProfileScreen = () => {
   const userInformations = useSelector(state => state.signInReducer);
-  const [enableEdit, setEnableEdit] = React.useState(false);
   const user_data = [
     {
       content: userInformations?.data?.name,
@@ -57,45 +56,6 @@ const ProfileScreen = () => {
         {userInformations?.data?.phone}
       </Text>
 
-      <TouchableOpacity
-        onPress={() => setEnableEdit(!enableEdit)}
-        style={{
-          borderRadius: 6,
-          alignSelf: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          flexDirection: 'row',
-          backgroundColor: color.white,
-          shadowColor: color.black,
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 2,
-          elevation: 2,
-        }}>
-        <Text
-          style={{
-            fontSize: stylesForMultipleDevice.fontSize - 1,
-            alignSelf: 'center',
-            fontWeight: 'bold',
-            color: color.carbonGrey,
-          }}>
-          Chỉnh sửa hồ sơ
-        </Text>
-        <Image
-          style={{
-            width: 13,
-            height: 13,
-            marginLeft: 10,
-            alignSelf: 'center',
-            tintColor: color.lightGrey,
-          }}
-          source={require('../../../assets/icons/arrow-right.png')}
-          resizeMode={'contain'}
-        />
-      </TouchableOpacity>
-
       {user_data &&
         user_data?.map((item, index) => (
           <View
@@ -113,10 +73,10 @@ const ProfileScreen = () => {
               marginTop={0}
               resizeMode="contain"
               value={item?.content}
-              textColor={enableEdit ? color.black : color.lightGrey}
-              editable={enableEdit}
+              textColor={color.lightGrey}
+              editable={false}
               disabled={true}
-              tintColorIconLeft={enableEdit ? color.black : color.lightGrey}
+              tintColorIconLeft={color.lightGrey}
             />
           </View>
         ))}

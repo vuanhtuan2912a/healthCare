@@ -9,15 +9,37 @@ import { color } from '../../../../styles/color';
 import { stylesForMultipleDevice } from '../../../../styles/global';
 import { textGlobal } from '../../../../textGlobal';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const ResultOfAppointmentBooking = ({
   visible = true,
   id_appointment = 123123,
-  dayTime = moment().add(1, 'days').format('DD/MM/YYYY'),
+  dayTime = moment().format('DD/MM/YYYY'),
   onClose = () => {},
   money = 1000000,
   onPayment = () => {},
 }) => {
+  const dateAppointment = useSelector(state => state.appointment.date);
+  const specialtyAppointment = useSelector(
+    state => state.appointment.specialty,
+  );
+
+  const dataServiceAppointment = [
+    dataInfoService[0],
+    {
+      title: textGlobal.DATE_OF_APPOINTMENT,
+      content: moment(dateAppointment).format('dddd - DD/MM/YYYY'),
+
+      icon: require('../../../../assets/icons/calendar.png'),
+    },
+    {
+      title: textGlobal.SPECIALTY,
+      content: specialtyAppointment,
+      icon: require('../../../../assets/icons/specialist.png'),
+    },
+
+    dataInfoService[1],
+  ];
   return (
     <Modal
       style={{
@@ -115,7 +137,7 @@ const ResultOfAppointmentBooking = ({
                 marginTop: 15,
                 textAlign: 'center',
               }}>
-              Thanh toán trước: {dayTime}
+              Thanh toán trước: {moment(dateAppointment).format('DD/MM/YYYY')}
             </Text>
 
             {/* -------------------------Informations------------------------ */}
@@ -144,15 +166,15 @@ const ResultOfAppointmentBooking = ({
                   stylesAppointmentBookingInformation.containerBody,
                   { borderWidth: 0 },
                 ]}>
-                {dataInfoService &&
-                  dataInfoService?.map((item, index) => (
+                {dataServiceAppointment &&
+                  dataServiceAppointment?.map((item, index) => (
                     <InformationsOfService
                       key={index}
                       uri={item?.icon}
                       title={item?.title}
                       content={item?.content}
                       marginBottom={
-                        index === dataInfoService.length - 1 ? 0 : 15
+                        index === dataServiceAppointment.length - 1 ? 0 : 15
                       }
                     />
                   ))}
@@ -193,7 +215,9 @@ const ResultOfAppointmentBooking = ({
                   </Text>
                 </View>
                 <Text style={stylesAppointmentBookingInformation.payBefore}>
-                  {textGlobal.PAY_BEFORE}: {dayTime}
+                  {textGlobal.PAY_BEFORE}
+                  {' ngày: '}
+                  {moment(dateAppointment).format('DD/MM/YYYY')}
                 </Text>
               </View>
               <Pressable

@@ -54,6 +54,23 @@
 
 	<!-- optionally, if you want to record audio: -->
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Microphone.</string>				
+	<string>$(PRODUCT_NAME) needs access to your Microphone.</string>		
+
+	<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			<key>NSExceptionDomains</key>
+			<dict>
+				<key>yourdomain.com</key>
+				<dict>
+					<key>NSIncludesSubdomains</key>
+					<true/>
+					<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+					<false/>
+				</dict>
+		</dict>
+	</dict>
+
 </dict>
 </plist>

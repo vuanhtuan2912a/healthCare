@@ -59,6 +59,7 @@ const SignUpWithCCCD = () => {
       dispatch(
         saveDataRegister({ data: { phone: dataPhone, ...lastestScannerData } }),
       );
+      console.log(lastestScannerData);
       AlertCustom({
         message: textGlobal.SIGN_UP_SUCCESSFULL,
         onPress: () => {
@@ -357,7 +358,9 @@ const SignUpWithCCCD = () => {
         <TextButton
           contentNoHightLight={textGlobal.ALDREADY_HAVE_ACCOUNT}
           content={' ' + textGlobal.SIGN_IN_NOW}
-          onPress={() => navigation.navigate('SignIn')}
+          onPress={() => {
+            navigation.navigate('SignIn');
+          }}
           textColor={color.topaz}
           marginTop={stylesForMultipleDevice.marginTop}
         />

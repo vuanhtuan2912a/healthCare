@@ -61,4 +61,5 @@ export const textGlobal = {
   CHOOSE_ICON_QR_CODE: 'Chọn biểu tượng mã QR để quét mã QR',
   SIGN_UP_SUCCESSFULL: 'Đăng ký thành công',
   APPOINTMENT_SUCCESSFULL: 'Đặt lịch thành công',
+  SPECIALTY: 'Chuyên khoa',
 };

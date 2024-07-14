@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ButtonCustomWithIcon from '../../../components/ButtonCustomWithIcon';
 import ButtonWithSelectRadio from '../../../components/ButtonWithSelectRadio';
@@ -8,16 +8,26 @@ import DropDownButton from '../../../components/DropDownButton';
 import DropDownDate from '../../../components/DropDownButton/DropDownDate';
 import HeaderBooking from '../../../components/HeaderBooking';
 import TypesAppointment from '../../../components/TypesAppointment';
+import { dataInfoService, dataSpecialist } from '../../../fakeData';
+import { stylesAppointmentBookingInformation } from '../../../styles/Screens/AppointmentBookingInformation';
 import { color } from '../../../styles/color';
 import { styles, stylesForMultipleDevice } from '../../../styles/global';
 import { textGlobal } from '../../../textGlobal';
-import { dataSpecialist } from '../../../fakeData';
-import { stylesAppointmentBookingInformation } from '../../../styles/Screens/AppointmentBookingInformation';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  saveDataAppointment,
+  saveSpecialtyAppointment,
+} from '../../../store/actions/appointment';
 
 const AppointmentBooking = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const dateAppointment = useSelector(state => state.appointment.date);
   const [selectedSpecialty, setSelectedSpecialty] = useState(false);
   const [selectedDate, setSelectedDate] = useState(false);
+  const [selectedTypesAppointment, setSelectedTypesAppointment] = useState(
+    textGlobal.CASH_FEE,
+  );
 
   return (
     <View style={styles.container}>
@@ -44,7 +54,11 @@ const AppointmentBooking = () => {
           {' *'}
         </Text>
       </View>
-      <TypesAppointment />
+      <TypesAppointment
+        typesAppointment={selectedTypesAppointment}
+        onPressCashFee={() => setSelectedTypesAppointment(textGlobal.CASH_FEE)}
+        onPressBHYT={() => setSelectedTypesAppointment(textGlobal.BHYT)}
+      />
       <ScrollView>
         <View>
           <ButtonWithSelectRadio
@@ -67,7 +81,10 @@ const AppointmentBooking = () => {
           />
           <DropDownButton
             onPress={() => setSelectedSpecialty(!selectedSpecialty)}
-            onPressSelected={() => setSelectedSpecialty(selectedSpecialty)}
+            onPressSelected={() => {
+              setSelectedSpecialty(selectedSpecialty);
+              dispatch(saveSpecialtyAppointment(dataSpecialist));
+            }}
             dropDownSelected={selectedSpecialty}
             content={textGlobal.CHOOSE_SPECIALTY}
             data={dataSpecialist}
@@ -96,7 +113,15 @@ const AppointmentBooking = () => {
           textColor={color.white}
           tintColor={color.white}
           alignItems="center"
-          onPress={() => navigation.navigate('AppointmentBookingInformation')}
+          onPress={() => {
+            navigation.navigate('AppointmentBookingInformation');
+            dispatch(
+              saveDataAppointment({
+                specialty: selectedSpecialty,
+                date: selectedDate,
+              }),
+            );
+          }}
           marginTop={stylesForMultipleDevice.marginTop}
           paddingHorizontal={15}
           iconRight={require('../../../assets/icons/icon-right.png')}

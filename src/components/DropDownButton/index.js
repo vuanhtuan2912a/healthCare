@@ -4,6 +4,8 @@ import { stylesDropDownButton } from '../../styles/DropDown';
 import { color } from '../../styles/color';
 import ItemsDropDown from './ItemsDropDown';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { saveSpecialtyAppointment } from '../../store/actions/appointment';
 
 const DropDownButton = ({
   uriIcon = require('../../assets/icons/arrow-right.png'),
@@ -13,6 +15,7 @@ const DropDownButton = ({
   data = [],
 }) => {
   const [selectedItem, setSelectedItem] = useState('');
+  const dispatch = useDispatch();
   return (
     <View style={[stylesDropDownButton.container, { paddingVertical: 3 }]}>
       <Pressable
@@ -45,6 +48,7 @@ const DropDownButton = ({
                   onPress={() => {
                     setSelectedItem(item?.content);
                     onPress();
+                    dispatch(saveSpecialtyAppointment(item?.content));
                   }}
                   data={data}
                   index={index}

@@ -7,10 +7,31 @@ import { stylesAppointmentBookingInformation } from '../../../styles/Screens/App
 import { color } from '../../../styles/color';
 import { textGlobal } from '../../../textGlobal';
 import CalendarCustom from '../../../components/Calendar';
-import moment from 'moment';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
-const AppointmentCalendar = ({ date }) => {
+const AppointmentCalendar = () => {
+  const bookingDate = useSelector(state => state.appointment.date);
+  const specialty = useSelector(state => state.appointment.specialty);
+  const data = [
+    dataInfoService[0],
+    {
+      title: textGlobal.DATE_OF_APPOINTMENT,
+      content: bookingDate
+        ? moment(bookingDate).format('dddd - DD/MM/YYYY')
+        : 'Bạn chưa đặt lịch hẹn khám. Vui lòng vào \nđặt lịch khám',
+      icon: require('../../../assets/icons/calendar.png'),
+    },
+    {
+      title: textGlobal.SPECIALTY,
+      content: specialty
+        ? specialty
+        : 'Bạn chưa đặt lịch hẹn khám. Vui lòng vào \nđặt lịch khám',
+      icon: require('../../../assets/icons/calendar.png'),
+    },
+    dataInfoService[1],
+  ];
   return (
     <View>
       <Header content="Lịch khám bệnh" />
@@ -22,7 +43,7 @@ const AppointmentCalendar = ({ date }) => {
           paddingTop: 10,
         }}>
         <View style={{ paddingHorizontal: 10 }}>
-          <CalendarCustom bookingDate={`${moment().format('YYYY-MM-DD')}`} />
+          <CalendarCustom bookingDate={bookingDate} />
         </View>
         <View style={stylesAppointmentBookingInformation.containerTitleService}>
           <Text style={stylesAppointmentBookingInformation.titleService}>
@@ -30,14 +51,14 @@ const AppointmentCalendar = ({ date }) => {
           </Text>
         </View>
         <View style={stylesAppointmentBookingInformation.containerBody}>
-          {dataInfoService &&
-            dataInfoService?.map((item, index) => (
+          {data &&
+            data?.map((item, index) => (
               <InformationsOfService
                 key={index}
                 uri={item?.icon}
                 title={item?.title}
                 content={item?.content}
-                marginBottom={index === dataInfoService.length - 1 ? 0 : 15}
+                marginBottom={index === data.length - 1 ? 0 : 15}
               />
             ))}
         </View>
@@ -47,5 +68,3 @@ const AppointmentCalendar = ({ date }) => {
 };
 
 export default AppointmentCalendar;
-
-const styles = StyleSheet.create({});
